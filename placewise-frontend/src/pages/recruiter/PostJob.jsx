@@ -1,62 +1,90 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { X, PlusCircle, Briefcase, Info } from 'lucide-react'
-import DashboardLayout from '@/components/common/DashboardLayout'
-import Button from '@/components/common/Button'
-import { createJob } from '@/features/jobs/jobsSlice'
-import toast from 'react-hot-toast'
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { X, PlusCircle, Briefcase, Info } from "lucide-react";
+import DashboardLayout from "@/components/common/DashboardLayout";
+import Button from "@/components/common/Button";
+import { createJob } from "@/features/jobs/jobsSlice";
+import toast from "react-hot-toast";
 
 const BRANCHES = [
-  'Computer Engineering', 'Electronics and Telecommunication',
-  'Information Technology', 'Mechanical Engineering',
-  'Civil Engineering', 'Electrical Engineering', 'All Branches',
-]
+  "Computer Engineering",
+  "Electronics and Telecommunication",
+  "Information Technology",
+  "Mechanical Engineering",
+  "Civil Engineering",
+  "Electrical Engineering",
+  "All Branches",
+];
 
 const ROLE_CATEGORIES = [
-  'software_engineer', 'data_scientist', 'devops_engineer', 'ml_engineer',
-  'product_manager', 'business_analyst', 'ux_designer', 'cybersecurity_analyst',
-  'cloud_architect', 'embedded_systems',
-]
+  "software_engineer",
+  "data_scientist",
+  "devops_engineer",
+  "ml_engineer",
+  "product_manager",
+  "business_analyst",
+  "ux_designer",
+  "cybersecurity_analyst",
+  "cloud_architect",
+  "embedded_systems",
+];
 
 const COMMON_SKILLS = [
-  'Python', 'JavaScript', 'React.js', 'Node.js', 'Java', 'SQL',
-  'Machine Learning', 'Docker', 'Git', 'REST API', 'System Design', 'TypeScript',
-]
+  "Python",
+  "JavaScript",
+  "React.js",
+  "Node.js",
+  "Java",
+  "SQL",
+  "Machine Learning",
+  "Docker",
+  "Git",
+  "REST API",
+  "System Design",
+  "TypeScript",
+];
 
 export default function PostJob() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
-    title:             '',
-    description:       '',
-    role_category:     'software_engineer',
-    required_skills:   [],
-    min_cgpa:          '',
+    title: "",
+    description: "",
+    role_category: "software_engineer",
+    required_skills: [],
+    min_cgpa: "",
     eligible_branches: [],
-    package_lpa:       '',
-    slots:             '',
-    deadline:          '',
-    skillInput:        '',
-  })
-  const [errors, setErrors] = useState({})
+    package_lpa: "",
+    slots: "",
+    deadline: "",
+    skillInput: "",
+  });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setForm((p) => ({ ...p, [name]: value }))
-    setErrors((p) => ({ ...p, [name]: '' }))
-  }
+    const { name, value } = e.target;
+    setForm((p) => ({ ...p, [name]: value }));
+    setErrors((p) => ({ ...p, [name]: "" }));
+  };
 
   const addSkill = (skill) => {
-    const s = skill.trim()
+    const s = skill.trim();
     if (s && !form.required_skills.includes(s)) {
-      setForm((p) => ({ ...p, required_skills: [...p.required_skills, s], skillInput: '' }))
+      setForm((p) => ({
+        ...p,
+        required_skills: [...p.required_skills, s],
+        skillInput: "",
+      }));
     }
-  }
+  };
 
   const removeSkill = (s) =>
-    setForm((p) => ({ ...p, required_skills: p.required_skills.filter((x) => x !== s) }))
+    setForm((p) => ({
+      ...p,
+      required_skills: p.required_skills.filter((x) => x !== s),
+    }));
 
   const toggleBranch = (b) => {
     setForm((p) => ({
@@ -64,52 +92,56 @@ export default function PostJob() {
       eligible_branches: p.eligible_branches.includes(b)
         ? p.eligible_branches.filter((x) => x !== b)
         : [...p.eligible_branches, b],
-    }))
-  }
+    }));
+  };
 
   const validate = () => {
-    const errs = {}
-    if (!form.title.trim())       errs.title       = 'Job title is required'
-    if (!form.description.trim()) errs.description = 'Description is required'
-    if (!form.deadline)           errs.deadline    = 'Deadline is required'
-    if (form.required_skills.length === 0) errs.required_skills = 'Add at least one required skill'
-    return errs
-  }
+    const errs = {};
+    if (!form.title.trim()) errs.title = "Job title is required";
+    if (!form.description.trim()) errs.description = "Description is required";
+    if (!form.deadline) errs.deadline = "Deadline is required";
+    if (form.required_skills.length === 0)
+      errs.required_skills = "Add at least one required skill";
+    return errs;
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const errs = validate()
-    if (Object.keys(errs).length) { setErrors(errs); return }
+    e.preventDefault();
+    const errs = validate();
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
 
-    setLoading(true)
+    setLoading(true);
 
     // Build clean payload — only include fields with values
     // Do NOT send status — backend always creates jobs as 'draft' pending approval
     const payload = {
-      title:           form.title.trim(),
-      description:     form.description.trim(),
-      role_category:   form.role_category,
+      title: form.title.trim(),
+      description: form.description.trim(),
+      role_category: form.role_category,
       required_skills: form.required_skills,
       eligible_branches: form.eligible_branches,
-      deadline:        form.deadline,
-      ...(form.min_cgpa    && { min_cgpa:    parseFloat(form.min_cgpa) }),
+      deadline: form.deadline,
+      ...(form.min_cgpa && { min_cgpa: parseFloat(form.min_cgpa) }),
       ...(form.package_lpa && { package_lpa: parseFloat(form.package_lpa) }),
-      ...(form.slots       && { slots:       parseInt(form.slots, 10) }),
-    }
+      ...(form.slots && { slots: parseInt(form.slots, 10) }),
+    };
 
-    const result = await dispatch(createJob(payload))
-    setLoading(false)
+    const result = await dispatch(createJob(payload));
+    setLoading(false);
 
     if (createJob.fulfilled.match(result)) {
       toast.success(
-        'Job submitted for review. The placement officer will approve and activate it.',
-        { duration: 5000 }
-      )
-      navigate('/recruiter/jobs')
+        "Job submitted for review. The placement officer will approve and activate it.",
+        { duration: 5000 },
+      );
+      navigate("/recruiter/jobs");
     } else {
-      toast.error(result.payload || 'Failed to post job. Please try again.')
+      toast.error(result.payload || "Failed to post job. Please try again.");
     }
-  }
+  };
 
   return (
     <DashboardLayout>
@@ -132,7 +164,6 @@ export default function PostJob() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-
           {/* Basic info */}
           <div className="card-padded space-y-4">
             <h2 className="section-title flex items-center gap-2">
@@ -145,7 +176,7 @@ export default function PostJob() {
                 name="title"
                 value={form.title}
                 onChange={handleChange}
-                className={`form-input ${errors.title ? 'border-status-danger' : ''}`}
+                className={`form-input ${errors.title ? "border-status-danger" : ""}`}
                 placeholder="e.g. Software Engineer – Backend"
               />
               {errors.title && <p className="form-error">{errors.title}</p>}
@@ -162,7 +193,9 @@ export default function PostJob() {
                 >
                   {ROLE_CATEGORIES.map((r) => (
                     <option key={r} value={r}>
-                      {r.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}
+                      {r
+                        .replace(/_/g, " ")
+                        .replace(/\b\w/g, (c) => c.toUpperCase())}
                     </option>
                   ))}
                 </select>
@@ -174,10 +207,12 @@ export default function PostJob() {
                   type="date"
                   value={form.deadline}
                   onChange={handleChange}
-                  min={new Date().toISOString().split('T')[0]}
-                  className={`form-input ${errors.deadline ? 'border-status-danger' : ''}`}
+                  min={new Date().toISOString().split("T")[0]}
+                  className={`form-input ${errors.deadline ? "border-status-danger" : ""}`}
                 />
-                {errors.deadline && <p className="form-error">{errors.deadline}</p>}
+                {errors.deadline && (
+                  <p className="form-error">{errors.deadline}</p>
+                )}
               </div>
             </div>
 
@@ -188,10 +223,12 @@ export default function PostJob() {
                 value={form.description}
                 onChange={handleChange}
                 rows={5}
-                className={`form-input resize-none ${errors.description ? 'border-status-danger' : ''}`}
+                className={`form-input resize-none ${errors.description ? "border-status-danger" : ""}`}
                 placeholder="Describe the role, responsibilities, and what you're looking for…"
               />
-              {errors.description && <p className="form-error">{errors.description}</p>}
+              {errors.description && (
+                <p className="form-error">{errors.description}</p>
+              )}
             </div>
           </div>
 
@@ -226,9 +263,14 @@ export default function PostJob() {
             <div className="flex gap-2">
               <input
                 value={form.skillInput}
-                onChange={(e) => setForm((p) => ({ ...p, skillInput: e.target.value }))}
+                onChange={(e) =>
+                  setForm((p) => ({ ...p, skillInput: e.target.value }))
+                }
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') { e.preventDefault(); addSkill(form.skillInput) }
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addSkill(form.skillInput);
+                  }
                 }}
                 className="form-input flex-1"
                 placeholder="Type a skill and press Enter…"
@@ -244,7 +286,9 @@ export default function PostJob() {
             </div>
 
             <div className="flex flex-wrap gap-1.5">
-              {COMMON_SKILLS.filter((s) => !form.required_skills.includes(s)).map((s) => (
+              {COMMON_SKILLS.filter(
+                (s) => !form.required_skills.includes(s),
+              ).map((s) => (
                 <button
                   key={s}
                   type="button"
@@ -312,8 +356,8 @@ export default function PostJob() {
                     onClick={() => toggleBranch(b)}
                     className={`chip text-xs transition-all ${
                       form.eligible_branches.includes(b)
-                        ? 'bg-brand-600 text-white ring-1 ring-brand-700'
-                        : 'bg-surface-subtle text-ink-secondary ring-1 ring-surface-border hover:ring-brand-300'
+                        ? "bg-brand-600 text-white ring-1 ring-brand-700"
+                        : "bg-surface-subtle text-ink-secondary ring-1 ring-surface-border hover:ring-brand-300"
                     }`}
                   >
                     {b}
@@ -331,7 +375,7 @@ export default function PostJob() {
             <Button
               type="button"
               variant="secondary"
-              onClick={() => navigate('/recruiter/jobs')}
+              onClick={() => navigate("/recruiter/jobs")}
             >
               Cancel
             </Button>
@@ -343,9 +387,8 @@ export default function PostJob() {
               Submit for Approval
             </Button>
           </div>
-
         </form>
       </div>
     </DashboardLayout>
-  )
+  );
 }
