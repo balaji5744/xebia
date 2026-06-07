@@ -335,20 +335,29 @@ function CandidateCard({ app, onShortlist, onReject, onSchedule, onSendOffer, on
           {/* Avatar */}
           <div className="w-9 h-9 rounded-full bg-brand-50 border border-brand-200 flex items-center justify-center shrink-0">
             <span className="text-sm font-semibold text-brand-700">
-              {student.name?.[0]?.toUpperCase() ?? '?'}
+              {student.name?.[0]?.toUpperCase() ?? "?"}
             </span>
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <p className="text-sm font-semibold text-ink">{student.name ?? 'Unknown'}</p>
+              <p className="text-sm font-semibold text-ink">
+                {student.name ?? "Unknown"}
+              </p>
               <StatusBadge status={app.status} size="sm" />
             </div>
             <div className="flex items-center gap-3 mt-0.5 flex-wrap">
-              <span className="text-xs text-ink-secondary">{student.branch ?? '—'}</span>
-              {student.cgpa && <span className="text-xs text-ink-muted">CGPA: {student.cgpa}</span>}
+              <span className="text-xs text-ink-secondary">
+                {student.branch ?? "—"}
+              </span>
+              {student.cgpa && (
+                <span className="text-xs text-ink-muted">
+                  CGPA: {student.cgpa}
+                </span>
+              )}
               {app.ai_score != null && (
                 <span className="flex items-center gap-1 text-xs font-medium text-brand-600">
-                  <TrendingUp size={10} /> {Number(app.ai_score).toFixed(0)}% match
+                  <TrendingUp size={10} /> {Number(app.ai_score).toFixed(0)}%
+                  match
                 </span>
               )}
             </div>
@@ -357,33 +366,59 @@ function CandidateCard({ app, onShortlist, onReject, onSchedule, onSendOffer, on
 
         <div className="flex items-center gap-2 shrink-0">
           {canShortlist && (
-            <Button size="sm" variant="outline-brand" leftIcon={<CheckCircle2 size={13} />} onClick={onShortlist}>
+            <Button
+              size="sm"
+              variant="outline-brand"
+              leftIcon={<CheckCircle2 size={13} />}
+              onClick={onShortlist}
+            >
               Shortlist
             </Button>
           )}
           {canSchedule && (
-            <Button size="sm" leftIcon={<Calendar size={13} />} onClick={onSchedule}>
+            <Button
+              size="sm"
+              leftIcon={<Calendar size={13} />}
+              onClick={onSchedule}
+            >
               Schedule
             </Button>
           )}
           {canSendOffer && (
-            <Button size="sm" variant="outline-brand" leftIcon={<Gift size={13} />} onClick={onSendOffer}
-              className="text-emerald-700 border-emerald-300 hover:bg-emerald-50">
+            <Button
+              size="sm"
+              variant="outline-brand"
+              leftIcon={<Gift size={13} />}
+              onClick={onSendOffer}
+              className="text-emerald-700 border-emerald-300 hover:bg-emerald-50"
+            >
               Send Offer
             </Button>
           )}
           {canMarkPlaced && (
-            <Button size="sm" leftIcon={<Award size={13} />} onClick={onMarkPlaced}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white border-transparent">
+            <Button
+              size="sm"
+              leftIcon={<Award size={13} />}
+              onClick={onMarkPlaced}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white border-transparent"
+            >
               Mark Placed
             </Button>
           )}
           {canReject && (
-            <Button size="sm" variant="ghost" onClick={onReject} className="text-status-danger hover:bg-status-danger-bg">
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={onReject}
+              className="text-status-danger hover:bg-status-danger-bg"
+            >
               <XCircle size={14} />
             </Button>
           )}
-          <button onClick={() => setExpanded((v) => !v)} className="p-1 text-ink-muted hover:text-ink transition-colors">
+          <button
+            onClick={() => setExpanded((v) => !v)}
+            className="p-1 text-ink-muted hover:text-ink transition-colors"
+          >
             {expanded ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
           </button>
         </div>
@@ -394,34 +429,52 @@ function CandidateCard({ app, onShortlist, onReject, onSchedule, onSendOffer, on
         <div className="pt-3 border-t border-surface-divider space-y-3 animate-fade-in">
           {skills.length > 0 && (
             <div>
-              <p className="text-xs font-medium text-ink-muted mb-1.5">Skills</p>
+              <p className="text-xs font-medium text-ink-muted mb-1.5">
+                Skills
+              </p>
               <div className="flex flex-wrap gap-1.5">
-                {skills.map((s) => <Badge key={s} variant="default" size="sm">{s}</Badge>)}
+                {skills.map((s) => (
+                  <Badge key={s} variant="default" size="sm">
+                    {s}
+                  </Badge>
+                ))}
               </div>
             </div>
           )}
           {app.interview && (
             <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-purple-50 border border-purple-100 text-xs text-purple-700">
               <Calendar size={12} />
-              Interview: {formatDate(app.interview.scheduled_at)} · {app.interview.mode}
+              Interview: {formatDate(app.interview.scheduled_at)} ·{" "}
+              {app.interview.mode}
             </div>
           )}
           {app.placementRecord?.offer_letter_url && (
             <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-50 border border-emerald-100 text-xs text-emerald-700">
               <Award size={12} />
-              Offer letter uploaded ·{' '}
-              <a href={app.placementRecord.offer_letter_url} target="_blank" rel="noopener noreferrer"
-                className="underline">View</a>
+              Offer letter uploaded ·{" "}
+              <a
+                href={app.placementRecord.offer_letter_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                View
+              </a>
             </div>
           )}
           {student.resume_url && (
-            <a href={student.resume_url} target="_blank" rel="noopener noreferrer"
-              className="text-xs text-brand-600 hover:underline">
+            <a
+              // If student.resume_url is "/uploads/file.pdf", this makes it "http://localhost:5000/uploads/file.pdf"
+              href={`${import.meta.env.VITE_API_URL || "http://localhost:5000"}${student.resume_url}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-brand-600 hover:underline"
+            >
               View Resume →
             </a>
           )}
         </div>
       )}
     </div>
-  )
+  );
 }
