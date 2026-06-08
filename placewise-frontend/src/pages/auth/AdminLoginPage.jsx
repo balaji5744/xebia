@@ -10,9 +10,9 @@ import Button from '@/components/common/Button'
 import toast from 'react-hot-toast'
 
 const ROLE_META = {
-  recruiter: { label: 'Recruiter Portal', color: 'bg-emerald-600', path: '/recruiter/dashboard' },
-  placement: { label: 'Placement Cell',   color: 'bg-purple-600',  path: '/placement/dashboard' },
-  admin:     { label: 'Admin Panel',      color: 'bg-orange-600',  path: '/admin/dashboard' },
+  recruiter: { label: 'Recruiter Portal', color: 'bg-brand-500', path: '/recruiter/dashboard' },
+  placement: { label: 'Placement Cell',   color: 'bg-brand-600', path: '/placement/dashboard' },
+  admin:     { label: 'Admin Panel',      color: 'bg-brand-700', path: '/admin/dashboard' },
 }
 
 export default function AdminLoginPage() {
@@ -61,7 +61,7 @@ export default function AdminLoginPage() {
       {/* Left panel */}
       <div className="hidden lg:flex flex-col w-96 bg-ink p-10 text-white">
         <div className="flex items-center gap-2.5 mb-auto">
-          <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center">
             <ShieldCheck size={18} className="text-white" />
           </div>
           <span className="text-base font-semibold">PlaceWise Staff</span>
@@ -101,7 +101,7 @@ export default function AdminLoginPage() {
           </div>
 
           {error && (
-            <div className="mb-5 px-4 py-3 rounded-xl bg-status-danger-bg border border-red-200 text-sm text-status-danger">
+            <div className="mb-5 px-4 py-3 rounded-xl bg-status-danger-bg border border-status-danger/30 text-sm text-status-danger">
               {error}
             </div>
           )}

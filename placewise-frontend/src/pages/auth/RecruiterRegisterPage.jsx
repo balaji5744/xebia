@@ -94,9 +94,9 @@ export default function RecruiterRegisterPage() {
   return (
     <div className="min-h-screen bg-surface-muted flex">
       {/* Left panel */}
-      <div className="hidden lg:flex flex-col w-96 bg-emerald-600 p-10 text-white">
+      <div className="hidden lg:flex flex-col w-96 bg-brand-600 p-10 text-white">
         <div className="flex items-center gap-2.5 mb-auto">
-          <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center">
             <Building2 size={18} className="text-white" />
           </div>
           <span className="text-base font-semibold">
@@ -107,7 +107,7 @@ export default function RecruiterRegisterPage() {
           <h2 className="text-2xl font-semibold leading-snug">
             Reach the best campus talent.
           </h2>
-          <p className="text-emerald-100 text-sm leading-relaxed">
+          <p className="text-white/70 text-sm leading-relaxed">
             Post jobs, review AI-ranked candidates, schedule interviews and
             release offers — all from one dashboard.
           </p>
@@ -120,15 +120,15 @@ export default function RecruiterRegisterPage() {
             ].map((f) => (
               <div
                 key={f}
-                className="flex items-center gap-2 text-sm text-emerald-100"
+                className="flex items-center gap-2 text-sm text-white/80"
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-300 shrink-0" />
+                <div className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0" />
                 {f}
               </div>
             ))}
           </div>
         </div>
-        <p className="text-emerald-300 text-xs">
+        <p className="text-white/40 text-xs">
           Jobs require TPO approval before going live
         </p>
       </div>
@@ -153,7 +153,7 @@ export default function RecruiterRegisterPage() {
           </div>
 
           {error && (
-            <div className="mb-5 px-4 py-3 rounded-xl bg-status-danger-bg border border-red-200 text-sm text-status-danger">
+            <div className="mb-5 px-4 py-3 rounded-xl bg-status-danger-bg border border-status-danger/30 text-sm text-status-danger">
               {error}
             </div>
           )}
@@ -264,7 +264,7 @@ export default function RecruiterRegisterPage() {
               )}
             </div>
 
-            <div className="flex items-start gap-2.5 px-3.5 py-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800">
+            <div className="flex items-start gap-2.5 px-3.5 py-3 rounded-xl bg-status-warning-bg border border-status-warning/30 text-xs text-status-warning">
               <Info size={13} className="shrink-0 mt-0.5" />
               Your account needs TPO approval before you can post jobs. After
               approval, job postings are also reviewed before going live to
@@ -275,7 +275,7 @@ export default function RecruiterRegisterPage() {
               type="submit"
               fullWidth
               loading={loading}
-              className="bg-emerald-600 hover:bg-emerald-700"
+              className="bg-brand-600 hover:bg-brand-700"
             >
               Create Recruiter Account
             </Button>
@@ -285,7 +285,7 @@ export default function RecruiterRegisterPage() {
             Already have an account?{" "}
             <Link
               to="/admin-login"
-              className="font-medium text-emerald-600 hover:text-emerald-700"
+              className="font-medium text-brand-600 hover:text-brand-700"
             >
               Sign in here
             </Link>

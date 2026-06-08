@@ -107,7 +107,7 @@ export default function RegisterPage() {
         </div>
 
         {error && (
-          <div className="mb-5 px-3.5 py-2.5 rounded-lg bg-status-danger-bg border border-red-200 text-sm text-status-danger">
+          <div className="mb-5 px-3.5 py-2.5 rounded-lg bg-status-danger-bg border border-status-danger/30 text-sm text-status-danger">
             {error}
           </div>
         )}
@@ -144,7 +144,7 @@ export default function RegisterPage() {
             <select
               id="branch" name="branch"
               value={form.branch} onChange={handleChange}
-              className="form-input bg-white"
+              className="form-input bg-surface"
             >
               <option value="">Select your branch</option>
               {BRANCHES.map((b) => <option key={b} value={b}>{b}</option>)}
@@ -158,7 +158,7 @@ export default function RegisterPage() {
               <select
                 id="year_of_study" name="year_of_study"
                 value={form.year_of_study} onChange={handleChange}
-                className="form-input bg-white"
+                className="form-input bg-surface"
               >
                 <option value="">Select</option>
                 {[1, 2, 3, 4].map((y) => (
