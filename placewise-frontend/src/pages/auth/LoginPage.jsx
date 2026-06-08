@@ -72,7 +72,7 @@ export default function LoginPage() {
       {/* Left panel — branding */}
       <div className="hidden lg:flex flex-col w-96 bg-brand-600 p-10 text-white">
         <div className="flex items-center gap-2.5 mb-auto">
-          <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center">
             <GraduationCap size={18} className="text-white" />
           </div>
           <span className="text-base font-semibold">AI Placement</span>
@@ -109,7 +109,7 @@ export default function LoginPage() {
           </div>
 
           {error && (
-            <div className="mb-5 px-4 py-3 rounded-xl bg-status-danger-bg border border-red-200 text-sm text-status-danger">
+            <div className="mb-5 px-4 py-3 rounded-xl bg-status-danger-bg border border-status-danger/30 text-sm text-status-danger">
               {error}
             </div>
           )}

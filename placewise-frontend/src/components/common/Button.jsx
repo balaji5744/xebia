@@ -38,13 +38,13 @@ export default function Button({
     secondary:
       'bg-surface-subtle text-ink hover:bg-surface-border active:bg-surface-border/80 border border-surface-border',
     danger:
-      'bg-status-danger text-white hover:bg-red-700 active:bg-red-800 shadow-sm',
+      'bg-status-danger text-white hover:opacity-90 active:opacity-80 shadow-sm',
     ghost:
       'bg-transparent text-ink-secondary hover:bg-surface-subtle hover:text-ink active:bg-surface-border',
     outline:
-      'bg-white text-ink border border-surface-border hover:bg-surface-subtle active:bg-surface-subtle shadow-sm',
+      'bg-surface text-ink border border-surface-border hover:bg-surface-subtle active:bg-surface-subtle shadow-sm',
     'outline-brand':
-      'bg-white text-brand-600 border border-brand-300 hover:bg-brand-50 active:bg-brand-100 shadow-sm',
+      'bg-surface text-brand-600 border border-brand-300 hover:bg-brand-50 active:bg-brand-100 shadow-sm',
   }
 
   return (

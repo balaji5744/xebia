@@ -6,30 +6,32 @@ import {
   ArrowRight,
   CheckCircle2,
 } from "lucide-react";
+import ThemeToggle from "@/components/common/ThemeToggle";
 
 export default function LandingPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-surface flex flex-col">
       {/* Top nav */}
       <header className="border-b border-surface-border px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-xl bg-brand-600 flex items-center justify-center">
             <GraduationCap size={18} className="text-white" />
           </div>
           <span className="text-base font-semibold text-ink">AI Placement</span>
         </div>
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <button
             onClick={() => navigate("/login")}
-            className="h-8 px-4 text-sm font-medium text-ink-secondary hover:text-ink transition-colors rounded-lg hover:bg-surface-subtle"
+            className="h-9 px-4 text-sm font-medium text-ink-secondary hover:text-ink transition-colors rounded-lg hover:bg-surface-subtle"
           >
             Student Login
           </button>
           <button
             onClick={() => navigate("/admin-login")}
-            className="h-8 px-4 text-sm font-medium bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors"
+            className="h-9 px-4 text-sm font-medium bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors"
           >
             Staff Login
           </button>
@@ -71,25 +73,25 @@ export default function LandingPage() {
           />
           <RoleCard
             icon={Building2}
-            iconBg="bg-emerald-600"
+            iconBg="bg-brand-500"
             title="Recruiters"
             description="Post jobs, review AI-ranked candidates, schedule interviews and release offer letters."
             primaryLabel="Register"
             secondaryLabel="Login"
             onPrimary={() => navigate("/recruiter-register")}
             onSecondary={() => navigate("/admin-login")}
-            accent="emerald"
+            accent="amber"
           />
           <RoleCard
             icon={ShieldCheck}
-            iconBg="bg-purple-600"
+            iconBg="bg-ink"
             title="TPO / Admin"
             description="Verify students, approve companies, manage the full placement lifecycle with analytics."
             primaryLabel="Sign In"
             secondaryLabel={null}
             onPrimary={() => navigate("/admin-login")}
             onSecondary={null}
-            accent="purple"
+            accent="ink"
           />
         </div>
 
@@ -103,7 +105,7 @@ export default function LandingPage() {
           ].map((f) => (
             <div
               key={f.label}
-              className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-white border border-surface-border text-xs font-medium text-ink-secondary"
+              className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-surface border border-surface-border text-xs font-medium text-ink-secondary"
             >
               <CheckCircle2 size={13} className="text-brand-500 shrink-0" />
               {f.label}
@@ -112,7 +114,7 @@ export default function LandingPage() {
         </div>
       </main>
 
-      <footer className="text-center py-4 text-xs text-ink-muted border-t border-surface-border bg-white">
+      <footer className="text-center py-4 text-xs text-ink-muted border-t border-surface-border bg-surface">
         AI-Powered Placement Management Platform &copy;{" "}
         {new Date().getFullYear()} — Smart Campus Placement System
       </footer>
@@ -137,15 +139,15 @@ function RoleCard({
       btn: "bg-brand-600 hover:bg-brand-700",
       ghost: "text-brand-600 hover:bg-brand-50",
     },
-    emerald: {
-      ring: "hover:border-emerald-300",
-      btn: "bg-emerald-600 hover:bg-emerald-700",
-      ghost: "text-emerald-600 hover:bg-emerald-50",
+    amber: {
+      ring: "hover:border-brand-300",
+      btn: "bg-brand-500 hover:bg-brand-600",
+      ghost: "text-brand-600 hover:bg-brand-50",
     },
-    purple: {
-      ring: "hover:border-purple-300",
-      btn: "bg-purple-600 hover:bg-purple-700",
-      ghost: "text-purple-600 hover:bg-purple-50",
+    ink: {
+      ring: "hover:border-ink-muted",
+      btn: "bg-ink hover:bg-ink/90",
+      ghost: "text-ink hover:bg-surface-subtle",
     },
   };
   const a = accentMap[accent];

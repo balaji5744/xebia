@@ -8,6 +8,7 @@ import store from './store.js'
 import './index.css'
 import { useSocket } from '@/hooks/useSocket'
 import { fetchMe } from '@/features/auth/authSlice'
+import { ThemeProvider } from '@/hooks/useTheme'
 
 function AppShell() {
   const dispatch = useDispatch()
@@ -38,25 +39,28 @@ if (!root) {
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <AppShell />
-        <Toaster
-          position="top-right"
-          gutter={8}
-          toastOptions={{
-            duration: 4000,
-            style: {
-              background:   '#0f172a',
-              color:        '#f8fafc',
-              fontSize:     '0.875rem',
-              borderRadius: '0.625rem',
-              padding:      '12px 16px',
-            },
-            success: { iconTheme: { primary: '#22c55e', secondary: '#0f172a' } },
-            error:   { iconTheme: { primary: '#ef4444', secondary: '#0f172a' } },
-          }}
-        />
-      </BrowserRouter>
+      <ThemeProvider>
+        <BrowserRouter>
+          <AppShell />
+          <Toaster
+            position="top-right"
+            gutter={8}
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background:   'rgb(var(--toast-bg))',
+                color:        'rgb(var(--toast-text))',
+                fontSize:     '0.875rem',
+                borderRadius: '0.75rem',
+                padding:      '12px 16px',
+                border:       '1px solid rgb(var(--surface-border))',
+              },
+              success: { iconTheme: { primary: '#16a34a', secondary: 'rgb(var(--toast-bg))' } },
+              error:   { iconTheme: { primary: '#dc2626', secondary: 'rgb(var(--toast-bg))' } },
+            }}
+          />
+        </BrowserRouter>
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
 )

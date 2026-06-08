@@ -15,12 +15,12 @@ export default function Badge({ children, variant = 'default', size = 'md', clas
 
   const variants = {
     default:  'bg-surface-subtle text-ink-secondary ring-1 ring-surface-border',
-    success:  'bg-status-success-bg text-status-success ring-1 ring-green-200',
-    warning:  'bg-status-warning-bg text-status-warning ring-1 ring-amber-200',
-    danger:   'bg-status-danger-bg text-status-danger ring-1 ring-red-200',
-    info:     'bg-status-info-bg text-status-info ring-1 ring-blue-200',
-    purple:   'bg-purple-50 text-purple-700 ring-1 ring-purple-200',
-    indigo:   'bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200',
+    success:  'bg-status-success-bg text-status-success ring-1 ring-status-success/30',
+    warning:  'bg-status-warning-bg text-status-warning ring-1 ring-status-warning/30',
+    danger:   'bg-status-danger-bg text-status-danger ring-1 ring-status-danger/30',
+    info:     'bg-status-info-bg text-status-info ring-1 ring-status-info/30',
+    purple:   'bg-brand-50 text-brand-700 ring-1 ring-brand-200',
+    indigo:   'bg-brand-50 text-brand-700 ring-1 ring-brand-200',
     outline:  'bg-transparent text-ink-secondary ring-1 ring-surface-border',
   }
 

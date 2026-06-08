@@ -67,7 +67,7 @@ export default function Modal({
       {/* Panel */}
       <div
         ref={dialogRef}
-        className={`relative w-full ${sizes[size] ?? sizes.md} bg-white rounded-2xl shadow-card-lg border border-surface-border animate-slide-up flex flex-col max-h-[90vh]`}
+        className={`relative w-full ${sizes[size] ?? sizes.md} bg-surface rounded-2xl shadow-card-lg border border-surface-border animate-slide-up flex flex-col max-h-[90vh]`}
       >
         {/* Header */}
         <div className="flex items-start justify-between px-6 pt-6 pb-4 border-b border-surface-divider shrink-0">

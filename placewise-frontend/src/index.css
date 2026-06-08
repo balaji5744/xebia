@@ -2,7 +2,93 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────────────────────────
+   Theme tokens — warm, minimal & elegant (amber-led).
+   All colors are defined as space-separated RGB channels so Tailwind can
+   apply opacity modifiers (e.g. bg-brand-500/20). The .dark class flips the
+   entire palette to a warm low-glare dark theme.
+   ──────────────────────────────────────────────────────────────────────── */
 @layer base {
+  :root {
+    /* Brand — amber / warm orange */
+    --brand-50:  255 247 237;
+    --brand-100: 254 237 213;
+    --brand-200: 253 215 170;
+    --brand-300: 253 186 116;
+    --brand-400: 251 146 60;
+    --brand-500: 245 158 11;
+    --brand-600: 217 119 6;
+    --brand-700: 180 83 9;
+    --brand-800: 146 64 14;
+    --brand-900: 120 53 15;
+
+    /* Surfaces — warm off-white */
+    --surface:         255 255 255;
+    --surface-muted:   250 249 246;
+    --surface-subtle:  244 242 237;
+    --surface-border:  231 227 219;
+    --surface-divider: 240 237 230;
+
+    /* Ink — warm stone */
+    --ink:             28 25 23;
+    --ink-secondary:   87 83 78;
+    --ink-muted:       146 140 134;
+    --ink-placeholder: 198 193 186;
+
+    /* Status */
+    --status-success:    22 163 74;
+    --status-success-bg: 240 253 244;
+    --status-warning:    217 119 6;
+    --status-warning-bg: 255 251 235;
+    --status-danger:     220 38 38;
+    --status-danger-bg:  254 242 242;
+    --status-info:       217 119 6;
+    --status-info-bg:    255 247 237;
+
+    --toast-bg:   28 25 23;
+    --toast-text: 250 249 246;
+  }
+
+  .dark {
+    /* Brand stays vibrant; tint backgrounds toward warm dark */
+    --brand-50:  47 32 13;
+    --brand-100: 67 44 14;
+    --brand-200: 92 60 20;
+    --brand-300: 146 64 14;
+    --brand-400: 217 119 6;
+    --brand-500: 245 158 11;
+    --brand-600: 251 158 32;
+    --brand-700: 252 186 116;
+    --brand-800: 253 215 170;
+    --brand-900: 254 237 213;
+
+    /* Surfaces — warm charcoal */
+    --surface:         38 34 32;
+    --surface-muted:   26 23 21;
+    --surface-subtle:  54 49 46;
+    --surface-border:  64 58 54;
+    --surface-divider: 48 43 40;
+
+    /* Ink */
+    --ink:             245 243 240;
+    --ink-secondary:   199 193 186;
+    --ink-muted:       148 141 134;
+    --ink-placeholder: 110 103 97;
+
+    /* Status — softened for dark */
+    --status-success:    74 222 128;
+    --status-success-bg: 20 41 28;
+    --status-warning:    251 191 36;
+    --status-warning-bg: 49 38 17;
+    --status-danger:     248 113 113;
+    --status-danger-bg:  47 24 24;
+    --status-info:       251 191 36;
+    --status-info-bg:    47 32 13;
+
+    --toast-bg:   54 49 46;
+    --toast-text: 245 243 240;
+  }
+
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -16,6 +102,7 @@
   body {
     @apply bg-surface-muted text-ink font-sans;
     min-height: 100dvh;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -57,10 +144,10 @@
 @layer components {
   /* Form input base */
   .form-input {
-    @apply w-full px-3.5 py-2.5 rounded-lg border border-surface-border bg-white
+    @apply w-full px-3.5 py-2.5 rounded-lg border border-surface-border bg-surface
            text-ink text-sm placeholder:text-ink-placeholder
-           focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500
-           transition-all duration-150 shadow-inner-sm;
+           focus:outline-none focus:ring-2 focus:ring-brand-500/25 focus:border-brand-500
+           transition-all duration-150;
   }
 
   .form-label {
@@ -73,7 +160,7 @@
 
   /* Card base */
   .card {
-    @apply bg-white rounded-xl border border-surface-border shadow-card;
+    @apply bg-surface rounded-2xl border border-surface-border shadow-card;
   }
 
   .card-padded {
@@ -105,18 +192,18 @@
   }
 
   /* Status pill colours */
-  .status-applied       { @apply bg-blue-50 text-blue-700 ring-1 ring-blue-200; }
-  .status-under_review  { @apply bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200; }
-  .status-shortlisted   { @apply bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200; }
-  .status-interview_scheduled { @apply bg-purple-50 text-purple-700 ring-1 ring-purple-200; }
-  .status-offer_received { @apply bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200; }
-  .status-placed        { @apply bg-green-50 text-green-700 ring-1 ring-green-200; }
-  .status-rejected      { @apply bg-red-50 text-red-700 ring-1 ring-red-200; }
+  .status-applied             { @apply bg-status-info-bg text-status-info ring-1 ring-brand-200; }
+  .status-under_review        { @apply bg-status-warning-bg text-status-warning ring-1 ring-brand-200; }
+  .status-shortlisted         { @apply bg-brand-50 text-brand-700 ring-1 ring-brand-200; }
+  .status-interview_scheduled { @apply bg-brand-50 text-brand-700 ring-1 ring-brand-200; }
+  .status-offer_received      { @apply bg-status-success-bg text-status-success ring-1 ring-status-success/30; }
+  .status-placed              { @apply bg-status-success-bg text-status-success ring-1 ring-status-success/30; }
+  .status-rejected            { @apply bg-status-danger-bg text-status-danger ring-1 ring-status-danger/30; }
 
   /* Severity colours for skill gap */
-  .severity-critical { @apply bg-red-50 text-red-700 border border-red-200; }
-  .severity-moderate { @apply bg-amber-50 text-amber-700 border border-amber-200; }
-  .severity-ready    { @apply bg-green-50 text-green-700 border border-green-200; }
+  .severity-critical { @apply bg-status-danger-bg text-status-danger border border-status-danger/30; }
+  .severity-moderate { @apply bg-status-warning-bg text-status-warning border border-brand-200; }
+  .severity-ready    { @apply bg-status-success-bg text-status-success border border-status-success/30; }
 
   /* Sidebar nav link */
   .nav-link {
@@ -133,6 +220,10 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
   }
 
   .animation-delay-100 { animation-delay: 100ms; }

@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { logoutThunk, selectCurrentUser } from '@/features/auth/authSlice'
 import { selectUnreadCount } from '@/features/notifications/notificationSlice'
+import ThemeToggle from './ThemeToggle'
 import toast from 'react-hot-toast'
 
 const NAV = {
@@ -33,10 +34,10 @@ const NAV = {
 }
 
 const ROLE_META = {
-  student:   { label: 'Student Portal',   color: 'bg-brand-600',   Icon: GraduationCap },
-  recruiter: { label: 'Recruiter Portal', color: 'bg-emerald-600', Icon: Building2 },
-  placement: { label: 'Placement Cell',   color: 'bg-purple-600',  Icon: BarChart3 },
-  admin:     { label: 'Admin Panel',      color: 'bg-orange-600',  Icon: ShieldCheck },
+  student:   { label: 'Student Portal',   color: 'bg-brand-600',  Icon: GraduationCap },
+  recruiter: { label: 'Recruiter Portal', color: 'bg-brand-500',  Icon: Building2 },
+  placement: { label: 'Placement Cell',   color: 'bg-brand-700',  Icon: BarChart3 },
+  admin:     { label: 'Admin Panel',      color: 'bg-ink',        Icon: ShieldCheck },
 }
 
 export default function Sidebar() {
@@ -57,13 +58,13 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="w-56 shrink-0 h-screen flex flex-col bg-white border-r border-surface-border overflow-hidden">
+    <aside className="w-56 shrink-0 h-screen flex flex-col bg-surface border-r border-surface-border overflow-hidden">
 
       {/* Brand header */}
       <div className="px-4 py-4 border-b border-surface-divider">
         <div className="flex items-center gap-2.5">
-          <div className={`w-7 h-7 rounded-lg ${meta.color} flex items-center justify-center shrink-0`}>
-            <RoleIcon size={15} className="text-white" />
+          <div className={`w-8 h-8 rounded-xl ${meta.color} flex items-center justify-center shrink-0`}>
+            <RoleIcon size={16} className="text-white" />
           </div>
           <div className="min-w-0">
             <p className="text-sm font-semibold text-ink leading-none truncate">
@@ -108,6 +109,7 @@ export default function Sidebar() {
             <p className="text-[11px] text-ink-muted truncate capitalize">{user?.role}</p>
           </div>
         </div>
+        <ThemeToggle variant="full" />
         <button
           onClick={handleLogout}
           className="nav-link w-full text-status-danger hover:text-status-danger hover:bg-status-danger-bg"
